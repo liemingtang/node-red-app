@@ -31,3 +31,19 @@ Test app on browser:
 
 
 Note: for security, you should add admin login credentials in the settings.js file in the node-red directory.
+
+
+
+Install new node-red npm modules. 
+Option 1: update the Dockerfile and build an new image. 
+
+Option 2: e.g., for dev and testing)
+
+Run npm install on the /local/data/folder the container was started on.   
+Note: need to stop and start the container after install to reflect the new nodes in the interface. 
+
+e.g.,
+> cd /local/data/folder
+> npm install node-red-packages
+> sudo docker stop nodered-1880
+> sudo docker start nodered-1880 
