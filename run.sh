@@ -37,7 +37,6 @@ then
 fi
 
 
-
 echo "Start node-red application: "
 echo "   Docker image name: $4"
 echo "   container: nodered-$3"
@@ -46,8 +45,10 @@ echo "   Node-red folder: $2"
 echo "   PORT: $3" 
 echo "   MQTT port: 1$3"
 
-
 cp $1 $2/flow_app.json
+
+if [ -z "$5" ]
+then
 
 docker run -d -p $3:1880  \
     -p 1$3:8880 \
@@ -55,4 +56,17 @@ docker run -d -p $3:1880  \
 	-e FLOWS=flow_app.json \
 	--name nodered-$3 $4 && \
 docker start nodered-$3 
+else 
+echo "   Extra parameter $5"
+docker run -d -p $3:1880  \
+    -p 1$3:8880 \
+        -v $2:/data \
+        -e FLOWS=flow_app.json \
+	$5 \
+        --name nodered-$3 $4 && \
+docker start nodered-$3
 
+
+
+
+fi 
